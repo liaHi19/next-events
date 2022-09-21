@@ -5,16 +5,13 @@ import DateIcon from "../../icons/date-icon";
 import AddressIcon from "../../icons/address-icon";
 import ArrowRightIcon from "../../icons/arrow-right-icon";
 
+import { readableDate, transformText } from "../../../helpers/string";
+
 import styles from "./event-item.module.css";
 
 const EventItem = ({ id, title, location, image, date }) => {
-  const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-
-  const formattedAddress = location.replace(", ", "\n");
+  const humanReadableDate = readableDate(date);
+  const formattedAddress = transformText(location);
   const exploreLink = `/events/${id}`;
 
   return (
