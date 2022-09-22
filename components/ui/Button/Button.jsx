@@ -3,11 +3,19 @@ import Link from "next/link";
 
 import styles from "./button.module.css";
 
-const Button = ({ link, children }) => {
+const Button = ({ link, children, onClick }) => {
   return (
-    <Link href={link}>
-      <a className={styles.btn}>{children}</a>
-    </Link>
+    <>
+      {link ? (
+        <Link href={link}>
+          <a className={styles.btn}>{children}</a>
+        </Link>
+      ) : (
+        <button className={styles.btn} onClick={onClick}>
+          {children}
+        </button>
+      )}
+    </>
   );
 };
 
