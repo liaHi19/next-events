@@ -17,3 +17,10 @@ export const transformData = (data) => {
     return transformedData;
   }
 };
+
+export const findById = (array, id) => {
+  if (!array.length) {
+    return;
+  }
+  return array.find((item) => item.id === id);
+};

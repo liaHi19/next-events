@@ -9,7 +9,6 @@ import EventsSearch from "../../components/events/eventsSearch/EventsSearch";
 const EventsPage = ({ events }) => {
   const router = useRouter();
 
-  console.log(events);
   const findEvents = (year, month) => {
     const fullPath = `/events/${year}/${month}`;
     router.push(fullPath);
