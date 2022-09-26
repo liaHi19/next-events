@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
-import { transformData } from "../../helpers/transform";
 
-import { apiClient } from "../../api/axiosConfig";
+import { getAllEvents } from "../../api/events";
 
 import EventsList from "../../components/events/EventsList/EventsList";
 import EventsSearch from "../../components/events/eventsSearch/EventsSearch";
@@ -23,13 +22,13 @@ const EventsPage = ({ events }) => {
 };
 
 export async function getStaticProps() {
-  const { data } = await apiClient.get();
-  const events = transformData(data);
+  const events = await getAllEvents();
 
   return {
     props: {
       events,
     },
+    revalidate: 60,
   };
 }
 
