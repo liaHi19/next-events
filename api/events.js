@@ -1,5 +1,5 @@
 import { apiClient } from "./axiosConfig";
-import { transformData } from "../helpers/transform";
+import { transformData, findById } from "../helpers/transform";
 
 export const getAllEvents = async () => {
   const { data } = await apiClient.get();
@@ -13,4 +13,11 @@ export const getFeaturedEvents = async () => {
   const featuredEvents = events.filter((event) => event.isFeatured);
 
   return featuredEvents;
+};
+
+export const getEventById = async (eventId) => {
+  const events = await getAllEvents();
+  const event = findById(events, eventId);
+
+  return event;
 };
