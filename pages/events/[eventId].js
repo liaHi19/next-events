@@ -5,6 +5,7 @@ import { getEventById, getFeaturedEvents } from "../../api/events";
 import EventSummary from "../../components/event-detail/eventSummary/EventSummary";
 import EventLogistics from "../../components/event-detail/eventLogistics/EventLogistics";
 import EventContent from "../../components/event-detail/eventContent/EventContent";
+import MainHead from "../../components/ui/MainHead";
 
 const EventDetailPage = ({ event }) => {
   if (!event) {
@@ -17,6 +18,7 @@ const EventDetailPage = ({ event }) => {
 
   return (
     <>
+      <MainHead title={event?.title} description={event.description} />
       <EventSummary title={event.title} />
       <EventLogistics {...event} />
       <EventContent>

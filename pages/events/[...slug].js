@@ -5,25 +5,39 @@ import { getFilteredEvents } from "../../api/events";
 import EventsList from "../../components/events/EventsList/EventsList";
 import ResultsTitle from "../../components/events/resultsTitle/ResultsTitle";
 import ErrorText from "../../components/ui/errorText/ErrorText";
+import MainHead from "../../components/ui/MainHead";
 
 const FilteredEventsPage = ({ hasError, filteredEvents, date }) => {
   if (hasError) {
     return (
-      <ErrorText
-        text="Invalid filter. Please adjust your values!"
-        link="/events"
-        linkText="Show All Events"
-      />
+      <>
+        {" "}
+        <MainHead
+          title="Filtered Events"
+          description="A list of filtered events"
+        />
+        <ErrorText
+          text="Invalid filter. Please adjust your values!"
+          link="/events"
+          linkText="Show All Events"
+        />
+      </>
     );
   }
 
   if (!filteredEvents || filteredEvents.length === 0) {
     return (
-      <ErrorText
-        text="No events found for chosen filter"
-        link="/events"
-        linkText="Show All Events"
-      />
+      <>
+        <MainHead
+          title="Filtered Events"
+          description="A list of filtered events"
+        />
+        <ErrorText
+          text="No events found for chosen filter"
+          link="/events"
+          linkText="Show All Events"
+        />
+      </>
     );
   }
 
@@ -31,6 +45,10 @@ const FilteredEventsPage = ({ hasError, filteredEvents, date }) => {
 
   return (
     <>
+      <MainHead
+        title="Filtered Events"
+        description={`All events for ${date.month}/${date.year}`}
+      />
       <ResultsTitle date={newDate} />
       <EventsList items={filteredEvents} />
     </>
