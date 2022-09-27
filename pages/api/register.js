@@ -1,5 +1,5 @@
 import fs from "fs";
-import { buildRegisterPath, extractEmail } from "../../helpers/serverApi";
+import { buildRegisterPath, extractData } from "../../helpers/serverApi";
 
 const handler = (req, res) => {
   if (req.method === "POST") {
@@ -12,7 +12,7 @@ const handler = (req, res) => {
 
     //storing
     const filePath = buildRegisterPath();
-    const data = extractEmail(filePath);
+    const data = extractData(filePath);
 
     data.push(newEmail);
     fs.writeFileSync(filePath, JSON.stringify(data));

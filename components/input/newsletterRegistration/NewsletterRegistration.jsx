@@ -9,7 +9,7 @@ const NewsletterRegistration = () => {
   function registrationHandler(event) {
     event.preventDefault();
 
-    apiBase.post("/", { email });
+    apiBase.post("/register", { email });
     setEmail("");
     // fetch user input (state or refs)
     // optional: validate input

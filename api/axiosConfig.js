@@ -5,7 +5,7 @@ export const apiClient = axios.create({
 });
 
 export const apiBase = axios.create({
-  baseURL: "http://localhost:3000/api/register",
+  baseURL: "http://localhost:3000/api",
   headers: {
     "Content-Type": "application/json",
   },

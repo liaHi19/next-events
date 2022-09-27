@@ -1,13 +1,13 @@
 import { useState } from "react";
 
+import { apiBase } from "../../../api/axiosConfig";
+
 import CommentList from "../commentList/CommentList";
 import NewComment from "../newComment/NewComment";
 
 import styles from "./comments.module.css";
 
-const Comments = (props) => {
-  const { eventId } = props;
-
+const Comments = ({ eventId }) => {
   const [showComments, setShowComments] = useState(false);
 
   function toggleCommentsHandler() {
@@ -15,7 +15,7 @@ const Comments = (props) => {
   }
 
   function addCommentHandler(commentData) {
-    // send data to API
+    apiBase.post("/comment", { eventId, ...commentData });
   }
 
   return (
