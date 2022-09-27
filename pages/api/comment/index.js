@@ -1,6 +1,5 @@
 import fs from "fs";
 import { buildCommentPath, extractData } from "../../../helpers/serverApi";
-import { findById } from "../../../helpers/transform";
 
 const handler = (req, res) => {
   const filePath = buildCommentPath();

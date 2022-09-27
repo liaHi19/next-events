@@ -1,21 +1,32 @@
+import { useEffect, useState } from "react";
+
+import { getEventComments } from "../../../api/comments";
+
 import styles from "./comment-list.module.css";
 
-const CommentList = () => {
+const CommentList = ({ eventId }) => {
+  const [comments, setComments] = useState([]);
+
+  const getComments = async () => {
+    const data = await getEventComments(eventId);
+    setComments(data);
+  };
+
+  useEffect(() => {
+    getComments();
+  }, [eventId]);
+
   return (
     <ul className={styles.comments}>
-      {/* Render list of comments - fetched from API */}
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
+      {comments.length > 0 &&
+        comments.map((comment) => (
+          <li key={comment.id}>
+            <p>{comment.text}</p>
+            <div>
+              By <address>{comment.name}</address>
+            </div>
+          </li>
+        ))}
     </ul>
   );
 };

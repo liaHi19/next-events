@@ -4,6 +4,7 @@ import { apiBase } from "../../../api/axiosConfig";
 
 import CommentList from "../commentList/CommentList";
 import NewComment from "../newComment/NewComment";
+import { getEventComments } from "../../../api/comments";
 
 import styles from "./comments.module.css";
 
@@ -24,7 +25,7 @@ const Comments = ({ eventId }) => {
         {showComments ? "Hide" : "Show"} Comments
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList />}
+      {showComments && <CommentList eventId={eventId} />}
     </section>
   );
 };
