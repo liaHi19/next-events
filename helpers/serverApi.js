@@ -2,11 +2,11 @@ import path from "path";
 import fs from "fs";
 
 export const buildRegisterPath = () => {
-  return path.join(process.cwd(), "data", "register.json");
+  return path.join(process.cwd(), "data", "newsletter.json");
 };
 
 export const buildCommentPath = () => {
-  return path.join(process.cwd(), "data", "comment.json");
+  return path.join(process.cwd(), "data", "comments.json");
 };
 
 export const extractData = (filePath) => {

@@ -16,7 +16,7 @@ const Comments = ({ eventId }) => {
   }
 
   function addCommentHandler(commentData) {
-    apiBase.post("/comment", { eventId, ...commentData });
+    apiBase.post("/comments", { eventId, ...commentData });
   }
 
   return (

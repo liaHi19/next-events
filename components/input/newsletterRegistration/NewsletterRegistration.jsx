@@ -8,9 +8,11 @@ const NewsletterRegistration = () => {
 
   function registrationHandler(event) {
     event.preventDefault();
+    if (email.trim().length > 3) {
+      apiBase.post("/newsletter", { email });
+      setEmail("");
+    }
 
-    apiBase.post("/register", { email });
-    setEmail("");
     // fetch user input (state or refs)
     // optional: validate input
     // send valid data to API
@@ -27,6 +29,7 @@ const NewsletterRegistration = () => {
             placeholder="Your email"
             aria-label="Your email"
             value={email}
+            required
             onChange={(e) => setEmail(e.target.value)}
           />
           <button>Register</button>
