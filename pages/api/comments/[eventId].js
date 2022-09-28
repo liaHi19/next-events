@@ -1,4 +1,6 @@
-const handler = (req, res) => {
+import { closeDB, addComment, getAllComments } from "../../../helpers/mongodb";
+
+const handler = async (req, res) => {
   const { eventId } = req.query;
 
   if (req.method === "POST") {
@@ -17,24 +19,23 @@ const handler = (req, res) => {
     }
 
     const newComment = {
-      id: new Date().toString(),
       email,
       name,
       text,
+      eventId,
     };
 
-    console.log(newComment);
+    const result = await addComment(newComment);
+    newComment.id = result.insertedId;
     res.status(201).json({ message: "Comment added", comment: newComment });
   }
 
   if (req.method === "GET") {
-    const dummyList = [
-      { id: "c1", name: "Natalia", text: "Your first comment" },
-      { id: "c2", name: "Nata", text: "Your second comment" },
-    ];
+    const comments = await getAllComments({ eventId });
 
-    res.status(200).json({ comments: dummyList });
+    res.status(200).json({ comments });
   }
+  await closeDB();
 };
 
 export default handler;

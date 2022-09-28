@@ -11,6 +11,20 @@ export const addEmail = async (email) => {
   await db.collection("emails").insertOne({ email });
 };
 
+export const addComment = async (comment) => {
+  const { db } = await connectDB();
+  return await db.collection("comments").insertOne(comment);
+};
+
+export const getAllComments = async (filter = {}) => {
+  const { db } = await connectDB();
+  return await db
+    .collection("comments")
+    .find(filter)
+    .sort({ _id: -1 })
+    .toArray();
+};
+
 export const closeDB = async () => {
   const { client } = await connectDB();
   client.close();

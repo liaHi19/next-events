@@ -10,7 +10,7 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     await addEmail(email);
     res.status(201).json({ message: "Email added", email });
-    closeDB();
+    await closeDB();
   }
 };
 
