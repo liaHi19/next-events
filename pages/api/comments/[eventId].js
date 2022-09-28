@@ -1,4 +1,4 @@
-import { closeDB, addComment, getAllComments } from "../../../helpers/mongodb";
+import { closeDB, addDocument, getAllComments } from "../../../helpers/mongodb";
 
 const handler = async (req, res) => {
   const { eventId } = req.query;
@@ -25,15 +25,26 @@ const handler = async (req, res) => {
       eventId,
     };
 
-    const result = await addComment(newComment);
-    newComment.id = result.insertedId;
-    res.status(201).json({ message: "Comment added", comment: newComment });
+    const result = await addDocument(newComment, "comments");
+    try {
+      newComment.id = result.insertedId;
+      res.status(201).json({ message: "Comment added", comment: newComment });
+    } catch (error) {
+      res.status(500).json({ message: "Adding comment failed" });
+    }
   }
 
   if (req.method === "GET") {
-    const comments = await getAllComments({ eventId });
-
-    res.status(200).json({ comments });
+    try {
+      const comments = await getAllComments(
+        "comments",
+        { _id: -1 },
+        { eventId }
+      );
+      res.status(200).json({ comments });
+    } catch (error) {
+      res.status(500).json({ message: "Getting comments failed" });
+    }
   }
   await closeDB();
 };

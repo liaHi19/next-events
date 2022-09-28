@@ -1,28 +1,24 @@
 import { MongoClient } from "mongodb";
 
 export const connectDB = async () => {
-  const client = await MongoClient.connect(process.env.REACT_APP_MONGO_URI);
-  const db = await client.db();
-  return { client, db };
+  try {
+    const client = await MongoClient.connect(process.env.REACT_APP_MONGO_URI);
+    const db = await client.db();
+    return { client, db };
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
 };
 
-export const addEmail = async (email) => {
+export const addDocument = async (comment, collection) => {
   const { db } = await connectDB();
-  await db.collection("emails").insertOne({ email });
+  return await db.collection(collection).insertOne(comment);
 };
 
-export const addComment = async (comment) => {
+export const getAllComments = async (collection, sort, filter = {}) => {
   const { db } = await connectDB();
-  return await db.collection("comments").insertOne(comment);
-};
-
-export const getAllComments = async (filter = {}) => {
-  const { db } = await connectDB();
-  return await db
-    .collection("comments")
-    .find(filter)
-    .sort({ _id: -1 })
-    .toArray();
+  return await db.collection(collection).find(filter).sort(sort).toArray();
 };
 
 export const closeDB = async () => {
