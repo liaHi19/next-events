@@ -1,4 +1,6 @@
-const handler = (req, res) => {
+import { closeDB, addEmail } from "../../helpers/mongodb";
+
+const handler = async (req, res) => {
   const { email } = req.body;
 
   if (!email || !email.includes("@")) {
@@ -6,12 +8,9 @@ const handler = (req, res) => {
     return;
   }
   if (req.method === "POST") {
-    const newEmail = {
-      id: new Date().toISOString(),
-      email,
-    };
-    console.log(newEmail);
-    res.status(201).json({ message: "Email added", email: newEmail });
+    await addEmail(email);
+    res.status(201).json({ message: "Email added", email });
+    closeDB();
   }
 };
 
