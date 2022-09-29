@@ -1,15 +1,37 @@
 import { useState } from "react";
 import { apiBase } from "../../../api/axiosConfig";
 
+import { useNotification } from "../../../store/NotificationContext";
+
 import styles from "./newsletter-registration.module.css";
 
 const NewsletterRegistration = () => {
   const [email, setEmail] = useState("");
+  const { showNotification } = useNotification();
 
-  function registrationHandler(event) {
+  async function registrationHandler(event) {
     event.preventDefault();
     if (email.trim().length > 3) {
-      apiBase.post("/newsletter", { email });
+      try {
+        showNotification({
+          title: "Signing up...",
+          message: "Registering for newsletters",
+          status: "pending",
+        });
+        await apiBase.post("/newsletter", { email });
+        showNotification({
+          title: "Success",
+          message: "Successfully registered for newsletters!",
+          status: "success",
+        });
+      } catch (error) {
+        showNotification({
+          title: "Error",
+          message: error.message || "Something went wrong",
+          status: "error",
+        });
+      }
+
       setEmail("");
     }
 

@@ -1,0 +1,4 @@
+export const IS_PRODUCTION = process.env.REACT_APP_ENV === "production";
+
+export const PRODUCTION = process.env.NEXT_PUBLIC_PROD_URL;
+export const DEVELOPMENT = process.env.APP_DEVELOPMENT;

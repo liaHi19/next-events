@@ -11,12 +11,12 @@ export const connectDB = async () => {
   }
 };
 
-export const addDocument = async (comment, collection) => {
+export const addDocument = async (document, collection) => {
   const { db } = await connectDB();
-  return await db.collection(collection).insertOne(comment);
+  return await db.collection(collection).insertOne(document);
 };
 
-export const getAllComments = async (collection, sort, filter = {}) => {
+export const getAllDocuments = async (collection, sort, filter = {}) => {
   const { db } = await connectDB();
   return await db.collection(collection).find(filter).sort(sort).toArray();
 };

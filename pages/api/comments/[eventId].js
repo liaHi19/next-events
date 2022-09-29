@@ -1,4 +1,8 @@
-import { closeDB, addDocument, getAllComments } from "../../../helpers/mongodb";
+import {
+  closeDB,
+  addDocument,
+  getAllDocuments,
+} from "../../../helpers/mongodb";
 
 const handler = async (req, res) => {
   const { eventId } = req.query;
@@ -36,7 +40,7 @@ const handler = async (req, res) => {
 
   if (req.method === "GET") {
     try {
-      const comments = await getAllComments(
+      const comments = await getAllDocuments(
         "comments",
         { _id: -1 },
         { eventId }
