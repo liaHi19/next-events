@@ -11,6 +11,11 @@ export const connectDB = async () => {
   }
 };
 
+export const checkExistingDocument = async (existingDoc, collection) => {
+  const { db } = await connectDB();
+  return (await db.collection(collection).find(existingDoc).count()) > 0;
+};
+
 export const addDocument = async (document, collection) => {
   const { db } = await connectDB();
   return await db.collection(collection).insertOne(document);

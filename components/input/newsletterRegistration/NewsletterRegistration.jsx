@@ -25,9 +25,10 @@ const NewsletterRegistration = () => {
           status: "success",
         });
       } catch (error) {
+        const { response } = error;
         showNotification({
           title: "Error",
-          message: error.message || "Something went wrong",
+          message: response.data.message || "Something went wrong",
           status: "error",
         });
       }

@@ -22,7 +22,6 @@ const Comments = ({ eventId }) => {
       setLoadingComments(false);
     } catch (error) {
       setLoadingComments(false);
-      console.log(error);
     }
   };
 
@@ -50,9 +49,10 @@ const Comments = ({ eventId }) => {
         status: "success",
       });
     } catch (error) {
+      const { response } = error;
       showNotification({
         title: "Error",
-        message: error.message || "Something went wrong",
+        message: response.data.message || "Something went wrong",
         status: "error",
       });
     }
