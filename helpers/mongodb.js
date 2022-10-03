@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 
 export const connectDB = async () => {
   try {
-    const client = await MongoClient.connect(process.env.APP_MONGO);
+    const client = await MongoClient.connect(process.env.MONGODB_URI);
     const db = await client.db();
     return { client, db };
   } catch (error) {
