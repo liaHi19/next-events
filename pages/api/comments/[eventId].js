@@ -1,8 +1,4 @@
-import {
-  closeDB,
-  addDocument,
-  getAllDocuments,
-} from "../../../helpers/mongodb";
+import { addDocument, getAllDocuments } from "../../../helpers/mongodb";
 
 const handler = async (req, res) => {
   const { eventId } = req.query;
@@ -50,7 +46,6 @@ const handler = async (req, res) => {
       res.status(500).json({ message: "Getting comments failed" });
     }
   }
-  await closeDB();
 };
 
 export default handler;

@@ -1,8 +1,4 @@
-import {
-  closeDB,
-  addDocument,
-  checkExistingDocument,
-} from "../../helpers/mongodb";
+import { addDocument, checkExistingDocument } from "../../helpers/mongodb";
 
 const handler = async (req, res) => {
   const { email } = req.body;
@@ -18,7 +14,6 @@ const handler = async (req, res) => {
       try {
         const newEmail = await addDocument({ email }, "emails");
         res.status(201).json({ message: "Email added", newEmail });
-        await closeDB();
       } catch (error) {
         res.status(500).json({ message: "Adding email failed" });
         return;
