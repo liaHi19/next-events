@@ -1,8 +1,11 @@
 import { MongoClient } from "mongodb";
+import { IS_PRODUCTION } from "../config/constants";
 
 export const connectDB = async () => {
   try {
-    const client = await MongoClient.connect(process.env.MONGODB_URI);
+    const client = await MongoClient.connect(
+      IS_PRODUCTION ? process.env.MONGODB_URI : process.env.APP_MONGODB_URI
+    );
     const db = await client.db();
     return { client, db };
   } catch (error) {
