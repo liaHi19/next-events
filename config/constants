@@ -1,5 +1,0 @@
-export const IS_PRODUCTION = process.env.APP_ENV === "production";
-
-export const PUBLIC = process.env.APP_PUBLIC_URL;
-
-export const CLIENT = process.env.APP_URL;

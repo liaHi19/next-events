@@ -1,13 +1,11 @@
 import { MongoClient } from "mongodb";
-import { IS_PRODUCTION } from "../config/constants";
 
-const MONGODB_URI_CHECK = IS_PRODUCTION
-  ? process.env.MONGODB_URI
-  : process.env.APP_MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI;
+
 const MONGODB_DB = process.env.MONGODB_NAME;
 
 // check the MongoDB URI
-if (!MONGODB_URI_CHECK) {
+if (!MONGODB_URI) {
   throw new Error("Define the MONGODB_URI environmental variable");
 }
 
@@ -32,7 +30,7 @@ export const connectDB = async () => {
     useUnifiedTopology: true,
   };
 
-  const client = new MongoClient(MONGODB_URI_CHECK, opts);
+  const client = new MongoClient(MONGODB_URI, opts);
   await client.connect();
   const db = client.db(MONGODB_DB);
 
